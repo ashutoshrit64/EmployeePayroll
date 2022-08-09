@@ -28,8 +28,8 @@ public class EmployeeModel {
         this.companyName=employeeDTO.getCompanyName();
         this.salary= employeeDTO.getSalary();
         this.department=employeeDTO.getDepartment();
-        this.registeredDate=LocalDateTime.now();
     }
+
 
     public EmployeeModel() {
 
