@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface EmployeeRepository extends JpaRepository<EmployeeModel,Long> {
 
+    Optional<EmployeeModel> findByEmailId(String email);
 }

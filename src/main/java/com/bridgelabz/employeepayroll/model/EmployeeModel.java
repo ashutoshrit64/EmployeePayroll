@@ -4,6 +4,9 @@ import com.bridgelabz.employeepayroll.dto.EmployeeDTO;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,6 +23,9 @@ public class EmployeeModel {
     private String department;
     private LocalDateTime registeredDate;
     private LocalDateTime updatedDate;
+    private String emailId;
+
+    private String password;
 
 
     public EmployeeModel(EmployeeDTO employeeDTO){
@@ -28,6 +34,8 @@ public class EmployeeModel {
         this.companyName=employeeDTO.getCompanyName();
         this.salary= employeeDTO.getSalary();
         this.department=employeeDTO.getDepartment();
+        this.emailId=employeeDTO.getEmailId();
+        this.password=employeeDTO.getPassword();
     }
 
 

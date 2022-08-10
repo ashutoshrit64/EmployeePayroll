@@ -9,5 +9,7 @@ public class EmployeeDTO {
     private String companyName;
     private long salary;
     private String department;
+    private String emailId;
+    private String password;
 
 }
