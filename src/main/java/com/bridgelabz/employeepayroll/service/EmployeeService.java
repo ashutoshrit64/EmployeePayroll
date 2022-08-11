@@ -20,12 +20,17 @@ public class EmployeeService implements IEmployeeService {
 
     @Autowired
     TokenUtil tokenUtil;
+    @Autowired
+    MailService mailService;
 
     @Override
     public EmployeeModel addemployee(EmployeeDTO employeeDTO) {
         EmployeeModel employeeModel=new EmployeeModel(employeeDTO);
         employeeModel.setRegisteredDate(LocalDateTime.now());
         employeeRepository.save(employeeModel);
+        String body="Employee is added succesfully with employeeId "+employeeModel.getEmployeeId();
+        String subject="Employee Registration Succesfull";
+        mailService.send(employeeModel.getEmailId(),subject,body);
         return employeeModel;
     }
 
@@ -86,4 +91,5 @@ public class EmployeeService implements IEmployeeService {
     //JMS
     //Swagger
     //Relationship between classes
+    //native query and validators
 }
