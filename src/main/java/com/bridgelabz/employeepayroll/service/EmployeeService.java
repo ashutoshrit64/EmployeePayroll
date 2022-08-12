@@ -4,7 +4,9 @@ import com.bridgelabz.employeepayroll.Exception.EmployeeNotFoundException;
 import com.bridgelabz.employeepayroll.Util.Response;
 import com.bridgelabz.employeepayroll.Util.TokenUtil;
 import com.bridgelabz.employeepayroll.dto.EmployeeDTO;
+import com.bridgelabz.employeepayroll.model.EmployeeDepartment;
 import com.bridgelabz.employeepayroll.model.EmployeeModel;
+import com.bridgelabz.employeepayroll.repository.DepartmentRepository;
 import com.bridgelabz.employeepayroll.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,9 +25,17 @@ public class EmployeeService implements IEmployeeService {
     @Autowired
     MailService mailService;
 
+    @Autowired
+    DepartmentRepository departmentRepository;
     @Override
     public EmployeeModel addemployee(EmployeeDTO employeeDTO) {
+
         EmployeeModel employeeModel=new EmployeeModel(employeeDTO);
+        EmployeeDepartment employeeDepartment=new EmployeeDepartment();
+        employeeDepartment.setDepartmentDescription(employeeModel.getEmployeeDepartment().getDepartmentDescription());
+        employeeDepartment.setDepartmentName(employeeModel.getEmployeeDepartment().getDepartmentName());
+        employeeDepartment.setCreatedTimeStamp(LocalDateTime.now());
+        departmentRepository.save(employeeDepartment);
         employeeModel.setRegisteredDate(LocalDateTime.now());
         employeeRepository.save(employeeModel);
         String body="Employee is added succesfully with employeeId "+employeeModel.getEmployeeId();
@@ -42,7 +52,7 @@ public class EmployeeService implements IEmployeeService {
             isEmployeePresent.get().setFirstName(employeeDTO.getFirstName());
             isEmployeePresent.get().setLastName(employeeDTO.getLastName());
             isEmployeePresent.get().setCompanyName(employeeDTO.getCompanyName());
-            isEmployeePresent.get().setDepartment(employeeDTO.getDepartment());
+            //isEmployeePresent.get().setDepartment(employeeDTO.getDepartment());
             isEmployeePresent.get().setSalary(employeeDTO.getSalary());
             isEmployeePresent.get().setUpdatedDate(LocalDateTime.now());
             employeeRepository.save(isEmployeePresent.get());

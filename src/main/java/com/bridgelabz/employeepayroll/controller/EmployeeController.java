@@ -7,6 +7,7 @@ import com.bridgelabz.employeepayroll.service.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -17,7 +18,7 @@ public class EmployeeController {
 
     //CRUD operations->Create read update delete
     @PostMapping("addemployee")
-    public EmployeeModel addemployee(@RequestBody EmployeeDTO employeeDTO){
+    public EmployeeModel addemployee(@Valid @RequestBody EmployeeDTO employeeDTO){
         return employeeService.addemployee(employeeDTO);
     }
 
