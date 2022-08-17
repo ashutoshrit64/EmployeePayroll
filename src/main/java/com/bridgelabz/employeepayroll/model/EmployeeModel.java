@@ -1,13 +1,9 @@
 package com.bridgelabz.employeepayroll.model;
 
-import com.bridgelabz.employeepayroll.dto.DepartmentDTO;
 import com.bridgelabz.employeepayroll.dto.EmployeeDTO;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 
 @Entity
@@ -37,15 +33,6 @@ public class EmployeeModel {
         this.salary= employeeDTO.getSalary();
         this.emailId=employeeDTO.getEmailId();
         this.password=employeeDTO.getPassword();
-        EmployeeDepartment employeeDepartment1=mapDepartment(employeeDTO.getDepartment());
-        this.employeeDepartment=employeeDepartment1;
-    }
-
-    public EmployeeDepartment mapDepartment(DepartmentDTO department) {
-        EmployeeDepartment employeeDepartment=new EmployeeDepartment();
-        employeeDepartment.setDepartmentName(department.getDepartmentName());
-        employeeDepartment.setDepartmentDescription(department.getDepartmentDesc());
-        return employeeDepartment;
     }
     public EmployeeModel() {
 

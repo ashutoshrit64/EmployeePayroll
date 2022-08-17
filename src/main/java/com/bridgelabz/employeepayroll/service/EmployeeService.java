@@ -27,15 +27,15 @@ public class EmployeeService implements IEmployeeService {
 
     @Autowired
     DepartmentRepository departmentRepository;
+
     @Override
-    public EmployeeModel addemployee(EmployeeDTO employeeDTO) {
+    public EmployeeModel addemployee(EmployeeDTO employeeDTO, Long departmentId) {
+        Optional<EmployeeDepartment> isDepartmentPresent=departmentRepository.findById(departmentId);
 
         EmployeeModel employeeModel=new EmployeeModel(employeeDTO);
-        EmployeeDepartment employeeDepartment=new EmployeeDepartment();
-        employeeDepartment.setDepartmentDescription(employeeModel.getEmployeeDepartment().getDepartmentDescription());
-        employeeDepartment.setDepartmentName(employeeModel.getEmployeeDepartment().getDepartmentName());
-        employeeDepartment.setCreatedTimeStamp(LocalDateTime.now());
-        departmentRepository.save(employeeDepartment);
+        if(isDepartmentPresent.isPresent()){
+            employeeModel.setEmployeeDepartment(isDepartmentPresent.get());
+        }
         employeeModel.setRegisteredDate(LocalDateTime.now());
         employeeRepository.save(employeeModel);
         String body="Employee is added succesfully with employeeId "+employeeModel.getEmployeeId();

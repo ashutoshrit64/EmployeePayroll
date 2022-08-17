@@ -18,12 +18,12 @@ public class EmployeeController {
 
     //CRUD operations->Create read update delete
     @PostMapping("addemployee")
-    public EmployeeModel addemployee(@Valid @RequestBody EmployeeDTO employeeDTO){
-        return employeeService.addemployee(employeeDTO);
+    public EmployeeModel addemployee(@Valid @RequestBody EmployeeDTO employeeDTO,@RequestParam Long departmentId){
+        return employeeService.addemployee(employeeDTO,departmentId);
     }
 
     @PutMapping("updateemployee/{id}")
-    public EmployeeModel updateemployee(@RequestBody EmployeeDTO employeeDTO,@PathVariable long id){
+    public EmployeeModel updateemployee(@Valid @RequestBody EmployeeDTO employeeDTO,@PathVariable long id){
         return employeeService.updateemployee(id,employeeDTO);
     }
 
