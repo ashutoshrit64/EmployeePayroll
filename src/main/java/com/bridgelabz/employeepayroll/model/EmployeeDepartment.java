@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class EmployeeDepartment {
     @Id
     @GeneratedValue(strategy =GenerationType.AUTO)
-    private long id;
+    private long deptId;
     private String departmentName;
     private String departmentDescription;
     private LocalDateTime createdTimeStamp;

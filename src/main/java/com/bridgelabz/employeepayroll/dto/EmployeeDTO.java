@@ -5,15 +5,15 @@ import lombok.*;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Data
 public class EmployeeDTO {
 
-    @NotNull
+
     private String firstName;
     private String lastName;
     private String companyName;
-    @Min(value = 11)
     private long salary;
     private String emailId;
     private String password;

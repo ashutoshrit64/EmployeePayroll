@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,13 +30,17 @@ public class EmployeeService implements IEmployeeService {
     DepartmentRepository departmentRepository;
 
     @Override
-    public EmployeeModel addemployee(EmployeeDTO employeeDTO, Long departmentId) {
-        Optional<EmployeeDepartment> isDepartmentPresent=departmentRepository.findById(departmentId);
-
+    public EmployeeModel addemployee(EmployeeDTO employeeDTO, List<Long> departmentId) {
+        List<EmployeeDepartment> employeeDepartmentList=new ArrayList<>();
+        departmentId.stream().forEach(deptId->{
+            Optional<EmployeeDepartment> isDepartmentPresent=departmentRepository.findById(deptId);
+            if(isDepartmentPresent.isPresent()) {
+                employeeDepartmentList.add(isDepartmentPresent.get());
+            }
+        });
         EmployeeModel employeeModel=new EmployeeModel(employeeDTO);
-        if(isDepartmentPresent.isPresent()){
-            employeeModel.setEmployeeDepartment(isDepartmentPresent.get());
-        }
+        if(employeeDepartmentList.size()>0)
+        employeeModel.setEmployeeDepartment(employeeDepartmentList);
         employeeModel.setRegisteredDate(LocalDateTime.now());
         employeeRepository.save(employeeModel);
         String body="Employee is added succesfully with employeeId "+employeeModel.getEmployeeId();
@@ -62,17 +67,17 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public List<EmployeeModel> getEmpData(String token) {
-        Long empId=tokenUtil.decodeToken(token);
-        Optional<EmployeeModel> isEmployeePresent=employeeRepository.findById(empId);
-        if(isEmployeePresent.isPresent()) {
+    public List<EmployeeModel> getEmpData() {
+//        Long empId=tokenUtil.decodeToken(token);
+//        Optional<EmployeeModel> isEmployeePresent=employeeRepository.findById(empId);
+//        if(isEmployeePresent.isPresent()) {
             List<EmployeeModel> getallemployee = employeeRepository.findAll();
             if (getallemployee.size() > 0)
                 return getallemployee;
             else
                 throw new EmployeeNotFoundException(400, "No DATA Present");
-        }
-        throw new EmployeeNotFoundException(400,"Employee Not found");
+//        }
+//        throw new EmployeeNotFoundException(400,"Employee Not found");
     }
 
     @Override

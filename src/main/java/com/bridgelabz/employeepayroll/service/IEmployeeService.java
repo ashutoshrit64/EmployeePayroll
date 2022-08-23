@@ -8,11 +8,11 @@ import java.util.List;
 
 
 public interface IEmployeeService {
-    EmployeeModel addemployee(EmployeeDTO employeeDTO, Long departmentId);
+    EmployeeModel addemployee(EmployeeDTO employeeDTO, List<Long> departmentId);
 
     EmployeeModel updateemployee(long id, EmployeeDTO employeeDTO);
 
-    List<EmployeeModel> getEmpData(String token);
+    List<EmployeeModel> getEmpData();
 
     EmployeeModel deleteEmployee(Long id);
 

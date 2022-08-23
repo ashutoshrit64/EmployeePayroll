@@ -18,7 +18,7 @@ public class EmployeeController {
 
     //CRUD operations->Create read update delete
     @PostMapping("addemployee")
-    public EmployeeModel addemployee(@Valid @RequestBody EmployeeDTO employeeDTO,@RequestParam Long departmentId){
+    public EmployeeModel addemployee(@RequestBody EmployeeDTO employeeDTO,@RequestParam List<Long> departmentId){
         return employeeService.addemployee(employeeDTO,departmentId);
     }
 
@@ -28,8 +28,8 @@ public class EmployeeController {
     }
 
     @GetMapping("getEmployeedata")
-    public List<EmployeeModel> getallemployee(@RequestHeader String token){
-        return employeeService.getEmpData(token);
+    public List<EmployeeModel> getallemployee(){
+        return employeeService.getEmpData();
     }
 
     @DeleteMapping("deleteemployee/{id}")

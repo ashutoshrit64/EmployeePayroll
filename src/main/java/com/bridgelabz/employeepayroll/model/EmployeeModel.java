@@ -4,7 +4,9 @@ import com.bridgelabz.employeepayroll.dto.EmployeeDTO;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "Employee")
@@ -17,8 +19,9 @@ public class EmployeeModel {
     private String lastName;
     private String companyName;
     private long salary;
-    @OneToOne
-    private EmployeeDepartment employeeDepartment;
+    @OneToMany
+    @CollectionTable(name = "emp_dept_mapping", joinColumns = @JoinColumn(name = "deptId"))
+    private List<EmployeeDepartment> employeeDepartment;
     private LocalDateTime registeredDate;
     private LocalDateTime updatedDate;
     private String emailId;
